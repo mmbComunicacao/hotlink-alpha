@@ -104,8 +104,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
       <header className="relative z-10 border-b border-slate-200/70 bg-white/65 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
           <a href={profileUrl} className="flex items-center gap-3" aria-label="Alpha Proteções - início">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-950 text-[11px] font-black tracking-tight text-white shadow-lg shadow-slate-300">A.</span>
-            <span className="text-sm font-semibold tracking-[0.12em] text-slate-900">ALPHA <span className="font-normal text-slate-400">PROTEÇÕES</span></span>
+            <img
+              src="/alphaprotecoes-h-padrao.svg"
+              alt="Alpha Proteções"
+              className="h-10 w-auto max-w-[190px] object-contain"
+            />
           </a>
           <div className="flex items-center gap-2">
             {source === "demo" && <span className="hidden rounded-full bg-amber-50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-amber-700 sm:inline-flex">Perfil demonstrativo</span>}
@@ -173,7 +176,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
       <footer className="relative z-10 border-t border-slate-200/70 bg-white/50 px-5 py-8 sm:px-8 lg:px-10">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 text-center text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:text-left">
-          <p>Uma conexão Alpha para relações mais seguras.</p>
+          <p className="flex items-center gap-2">
+            <img src="/alphaprotecoes-icon-padrao.svg" alt="" className="h-5 w-5 object-contain" />
+            <span>Uma conexão Alpha Proteções para relações mais seguras.</span>
+          </p>
           <p>© {new Date().getFullYear()} Alpha Proteções</p>
         </div>
       </footer>
