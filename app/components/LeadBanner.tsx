@@ -40,11 +40,11 @@ export default function LeadBanner({
       // 2. Checa se a requisição falhou no servidor (Status 4xx ou 5xx)
       if (!response.ok) throw new Error('Não foi possível registrar o lead')
 
-      // 3. 🚨 Extrai o corpo da resposta em JSON
+      // 3. Extrai o corpo da resposta em JSON
       const data: { ok: boolean; mode: string; quotationCode: string } =
         await response.json()
 
-      // 4. Agora sim, pega o quotationCode dos DADOS extraídos
+      // 4. Pega o quotationCode dos DADOS extraídos
       const { quotationCode } = data
 
       setStatus('success')
@@ -73,7 +73,7 @@ export default function LeadBanner({
   return (
     <div className="fixed bottom-6 left-1/2 z-50 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2 px-4 sm:bottom-8 sm:left-auto sm:right-8 sm:translate-x-0 sm:px-0">
       <div
-        className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'max-h-[400px] opacity-100' : 'max-h-16 opacity-100'}`}
+        className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(0,140,238,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'max-h-[400px] opacity-100' : 'max-h-16 opacity-100'}`}
       >
         {!isExpanded ? (
           <button
@@ -83,7 +83,7 @@ export default function LeadBanner({
             <span className="text-sm font-bold tracking-tight text-slate-900">
               Quer que eu te ligue?
             </span>
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-700 text-white shadow-sm">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#008CEE] text-white shadow-sm shadow-[#008CEE]/30">
               <svg
                 width="16"
                 height="16"
@@ -100,12 +100,14 @@ export default function LeadBanner({
           <div className="p-6">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                <h3 className="text-lg font-bold tracking-tight text-slate-900">
                   Solicitar contato
                 </h3>
                 <p className="mt-1 text-xs text-slate-500">
                   O consultor{' '}
-                  <span className="font-semibold">{consultantName}</span>{' '}
+                  <span className="font-semibold text-[#008CEE]">
+                    {consultantName}
+                  </span>{' '}
                   retornará em breve.
                 </p>
               </div>
@@ -128,7 +130,7 @@ export default function LeadBanner({
 
             {status === 'success' ? (
               <div className="flex flex-col items-center py-6 text-center">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 text-teal-600">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#008CEE]/10 text-[#008CEE]">
                   <svg
                     width="24"
                     height="24"
@@ -161,7 +163,7 @@ export default function LeadBanner({
                     type="text"
                     required
                     placeholder="Como podemos te chamar?"
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-500/10"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#008CEE] focus:bg-white focus:ring-2 focus:ring-[#008CEE]/20"
                     value={formData.name}
                     onChange={e =>
                       setFormData({ ...formData, name: e.target.value })
@@ -180,7 +182,7 @@ export default function LeadBanner({
                     type="tel"
                     required
                     placeholder="(00) 00000-0000"
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-500/10"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#008CEE] focus:bg-white focus:ring-2 focus:ring-[#008CEE]/20"
                     value={formData.phone}
                     onChange={e =>
                       setFormData({ ...formData, phone: e.target.value })
@@ -193,7 +195,7 @@ export default function LeadBanner({
                 <button
                   type="submit"
                   disabled={status === 'submitting'}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 py-3.5 text-sm font-bold text-white shadow-lg transition hover:bg-slate-800 active:scale-[0.98] disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#008CEE] py-3.5 text-sm font-bold text-white shadow-lg shadow-[#008CEE]/25 transition hover:bg-[#0070C8] active:scale-[0.98] disabled:opacity-50"
                 >
                   {status === 'submitting' ? (
                     <svg

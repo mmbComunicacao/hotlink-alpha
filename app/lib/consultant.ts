@@ -30,13 +30,13 @@ type UnknownRecord = Record<string, unknown>
 
 const demoCatalog: CatalogItem[] = [
   {
-    title: 'Alpha Proteções',
+    title: 'Proteção',
     description:
       'Soluções para proteger seu veículo, sua família e seu patrimônio.',
     imageUrl:
       'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=900&q=85',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Proteção'
+    tag: 'Alpha Proteções'
   },
   {
     title: 'Parceria Comercial',
@@ -240,7 +240,6 @@ export async function getConsultant(id: string) {
 
   try {
     const url = apiUrl + '/' + normalizedId
-    // url.searchParams.set('id', normalizedId)
     console.log('URL', url.toString())
     const response = await fetch(url, {
       headers: { Accept: 'application/json' },
