@@ -19,3 +19,7 @@ O banner flutuante foi exibido no viewport após a abertura da página, inicialm
 ## Teste ponta a ponta
 
 O formulário foi aberto, preenchido com nome e telefone de teste e enviado pelo navegador. A rota `POST /api/leads` respondeu com `{ "ok": true, "mode": "demo" }` sem endpoint externo configurado, e a interface exibiu `Solicitação enviada!`.
+
+## Atualização de marca
+
+Os arquivos oficiais `alphaprotecoes-h-padrao.svg` e `alphaprotecoes-icon-padrao.svg` foram instalados em `public/`. A logo completa aparece no cabeçalho e o ícone aparece no rodapé. O manifesto foi atualizado para `Alpha Proteções`, e a verificação no navegador confirmou os caminhos da logo, do ícone, do favicon `/favicon.ico` e do manifesto `/site.webmanifest`. A frase institucional agora usa `Alpha Proteções` por extenso.
