@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #FDFCF8; /* Marfim suave */
-  --foreground: #0F172A; /* Azul marinho profundo */
-  --primary: #0D9488;    /* Verde água (Teal) */
-  --primary-foreground: #FFFFFF;
-  --muted: #64748B;
-  --accent: #F1F5F9;
-  --border: #E2E8F0;
+  --background: #fdfcf8; /* Marfim suave */
+  --foreground: #0f172a; /* Azul marinho profundo */
+  --primary: #0d9488; /* Verde água (Teal) */
+  --primary-foreground: #ffffff;
+  --muted: #64748b;
+  --accent: #f1f5f9;
+  --border: #e2e8f0;
 }
 
 @theme inline {
@@ -34,4 +34,21 @@ body {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
