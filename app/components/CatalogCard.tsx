@@ -10,7 +10,7 @@ export default function CatalogCard({ item }: { item: CatalogItem }) {
       className="group flex flex-col overflow-hidden rounded-none border border-slate-200 bg-white p-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#008CEE]"
     >
       {/* Container da Imagem Totalmente Quadrado */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+      <div className="relative aspect-square w-full overflow-hidden bg-slate-100">
         <img
           src={item.imageUrl}
           alt={item.title}

@@ -97,12 +97,11 @@ const demoConsultant: Consultant = {
   address: 'Atendimento online e presencial',
   description:
     'Meu papel é entender o seu momento e apresentar caminhos seguros, claros e personalizados. Conte comigo para encontrar a solução mais adequada para você, sua família ou seu negócio.',
-  instagramHandle: '@alphaprotecoes',
-  instagramUrl: 'https://instagram.com/alphaprotecoes',
+  instagramHandle: '@alpha.protecoes',
+  instagramUrl: 'https://instagram.com/alpha.protecoes',
   websiteUrl: 'https://alphaprotecoes.com.br',
   hours: 'Segunda a sexta, das 8h às 18h',
-  avatarUrl:
-    'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=500&q=85',
+  avatarUrl: '/logo-alpha.png',
   isVerified: true,
   catalog: demoCatalog
 }
@@ -133,7 +132,7 @@ function mapCatalog(value: unknown): CatalogItem[] {
         ),
         imageUrl: asString(
           source.imageUrl ?? source.image ?? source.thumbnail,
-          demoCatalog[0].imageUrl
+          '/logo-alpha.png'
         ),
         href: asString(
           source.href ?? source.url ?? source.link,
@@ -211,7 +210,7 @@ export function normalizeConsultant(payload: unknown, id: string): Consultant {
     ),
     avatarUrl: asString(
       nested.avatarUrl ?? nested.avatar ?? nested.photo ?? nested.foto,
-      demoConsultant.avatarUrl
+      '/logo-alpha.png'
     ),
     isVerified: asBoolean(
       nested.isVerified ?? nested.verified,
