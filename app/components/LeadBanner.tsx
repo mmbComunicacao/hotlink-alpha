@@ -73,7 +73,7 @@ export default function LeadBanner({
   return (
     <div className="fixed bottom-6 left-1/2 z-50 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2 px-4 sm:bottom-8 sm:left-auto sm:right-8 sm:translate-x-0 sm:px-0">
       <div
-        className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(0,140,238,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'max-h-[400px] opacity-100' : 'max-h-16 opacity-100'}`}
+        className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(0,140,238,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'max-h-100 opacity-100' : 'max-h-16 opacity-100'}`}
       >
         {!isExpanded ? (
           <button

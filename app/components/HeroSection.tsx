@@ -235,10 +235,10 @@ export default function HeroSection({
                   href={whatsappUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-b from-[#00A3FF] via-[#008CEE] to-[#0070C8] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#008CEE]/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#008CEE]/40 active:scale-95"
+                  className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-xl bg-linear-to-b from-[#00A3FF] via-[#008CEE] to-[#0070C8] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#008CEE]/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#008CEE]/40 active:scale-95"
                 >
-                  <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/35 to-transparent rounded-t-xl" />
-                  <span className="pointer-events-none absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent transition-all duration-1000 ease-out group-hover:left-full" />
+                  <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-linear-to-b from-white/35 to-transparent rounded-t-xl" />
+                  <span className="pointer-events-none absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-linear-to-r from-transparent via-white/40 to-transparent transition-all duration-1000 ease-out group-hover:left-full" />
 
                   {/* Conteúdo do Botão */}
                   <span className="relative z-10 flex items-center gap-2 drop-shadow-sm">
@@ -248,7 +248,6 @@ export default function HeroSection({
               </div>
             </div>
 
-            {/* CARD INFERIOR DIREITO: MARQUEE EM MOVIMENTO CONTÍNUO */}
             <div className="about-content-part-bottom rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm">
               <h2 className="text-xs font-bold uppercase tracking-widest text-[#7A838C] mb-3">
                 VANTAGENS ALPHA PROTEÇÕES
