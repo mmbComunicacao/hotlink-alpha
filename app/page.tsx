@@ -28,7 +28,7 @@ export default async function Home({
       <Header profileUrl={profileUrl} source={source} />
 
       {/* Hero Section */}
-      <HeroSection consultant={consultant} whatsappUrl={whatsappUrl} />
+      <HeroSection consultant={consultant} />
 
       {/* Lead Banner */}
       <LeadBanner

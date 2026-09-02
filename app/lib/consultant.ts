@@ -101,7 +101,7 @@ const demoConsultant: Consultant = {
   instagramUrl: 'https://instagram.com/alpha.protecoes',
   websiteUrl: 'https://alphaprotecoes.com.br',
   hours: 'Segunda a sexta, das 8h às 18h',
-  avatarUrl: '/logo-alpha.png',
+  avatarUrl: '/logos/logo-alpha.png',
   isVerified: true,
   catalog: demoCatalog
 }
@@ -132,7 +132,7 @@ function mapCatalog(value: unknown): CatalogItem[] {
         ),
         imageUrl: asString(
           source.imageUrl ?? source.image ?? source.thumbnail,
-          '/logo-alpha.png'
+          '/logos/logo-alpha.png'
         ),
         href: asString(
           source.href ?? source.url ?? source.link,

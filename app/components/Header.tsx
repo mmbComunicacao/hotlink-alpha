@@ -17,7 +17,7 @@ export default function Header({ profileUrl, source }: HeaderProps) {
           aria-label="Alpha Proteções - início"
         >
           <Image
-            src="/logo.svg"
+            src="/logos/logo.svg"
             alt="Alpha Proteções"
             sizes="100vw"
             width={0}
@@ -26,11 +26,6 @@ export default function Header({ profileUrl, source }: HeaderProps) {
           />
         </a>
         <div className="flex items-center gap-2">
-          {source === 'demo' && (
-            <span className="hidden rounded-full bg-[#008CEE]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#008CEE] sm:inline-flex">
-              Perfil demonstrativo
-            </span>
-          )}
           <ShareButton />
         </div>
       </div>
