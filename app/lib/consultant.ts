@@ -1,3 +1,8 @@
+export type BusinessHourItem = {
+  day: string
+  hours: string
+}
+
 export type CatalogItem = {
   title: string
   description: string
@@ -21,6 +26,7 @@ export type Consultant = {
   instagramUrl?: string
   websiteUrl?: string
   hours: string
+  businessHoursList: BusinessHourItem[]
   avatarUrl: string
   isVerified?: boolean
   catalog: CatalogItem[]
@@ -28,60 +34,64 @@ export type Consultant = {
 
 type UnknownRecord = Record<string, unknown>
 
+const demoBusinessHours: BusinessHourItem[] = [
+  { day: 'Segunda', hours: '08:00 - 18:00' },
+  { day: 'Terça', hours: '08:00 - 18:00' },
+  { day: 'Quarta', hours: '08:00 - 18:00' },
+  { day: 'Quinta', hours: '08:00 - 18:00' },
+  { day: 'Sexta', hours: '08:00 - 18:00' },
+  { day: 'Sábado', hours: 'Fechada' },
+  { day: 'Domingo', hours: 'Fechada' }
+]
+
 const demoCatalog: CatalogItem[] = [
   {
-    title: 'Proteção',
+    title: 'Proteção Veicular',
     description:
-      'Soluções para proteger seu veículo, sua família e seu patrimônio.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=900&q=85',
+      'Seu carro 100% protegido. Cobertura total contra roubo, colisão e guincho 24h ilimitado em todo o Brasil.',
+    imageUrl: '/cards/protecao-veicular.jpg',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Alpha Proteções'
+    tag: 'Alpha Auto'
   },
   {
-    title: 'Parceria Comercial',
+    title: 'Proteção Residencial',
     description:
-      'Uma oportunidade para consultores ampliarem sua atuação com suporte.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=85',
+      'Durma tranquilo. Proteção para seu lar contra incêndio, roubo e assistência emergenciais completas',
+    imageUrl: '/cards/protecao-residencial.jpg',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Oportunidade'
+    tag: 'Alpha Lar'
   },
   {
-    title: 'Movimento Mais Seguro',
+    title: 'Vida e Família',
     description:
-      'Informação e orientação para escolhas mais seguras em todos os momentos.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=85',
+      'Garanta o futuro de quem você ama. Proteção financeira para sua família em caso de imprevistos.',
+    imageUrl: '/cards/seguro-vida.jpg',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Conteúdo'
+    tag: 'Alpha Vida'
   },
   {
-    title: 'Grupo MMB',
+    title: 'Proteção Empresarial',
     description:
-      'Experiência, inovação e compromisso para desenvolver negócios sólidos.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85',
+      'Blindagem para seu negócio. Proteção contra processos, danos ao patrimônio e lucros cessantes.',
+    imageUrl: '/cards/protecao-empresarial.jpg',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Grupo'
+    tag: 'Ativa em 24H'
   },
   {
-    title: 'Potere Consórcio',
+    title: 'Máquinas e Equipamentos',
     description:
-      'Planeje suas conquistas com acompanhamento para escolher o melhor caminho.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=85',
+      'Não para sua obra. Proteção completa para maquinário pesado, agrícola e equipamentos portáteis.',
+    imageUrl: '/cards/protecao-equipamentos.jpg',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Planejamento'
+    tag: 'Alpha Equipamentos'
   },
   {
-    title: 'Juntos Pod+',
+    title: 'Soluções Sob Medida',
     description:
-      'Conversas que informam, inspiram e conectam pessoas e negócios.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=900&q=85',
+      'Não achou o que procura? Fale com um consultor e montaremos uma proteção exclusiva para você.',
+    imageUrl: '/cards/solucoes-sob-medida.jpg',
     href: 'https://alphaprotecoes.com.br',
-    tag: 'Podcast'
+    tag: 'Ativação Imediata'
   }
 ]
 
@@ -89,18 +99,19 @@ const demoConsultant: Consultant = {
   id: 'demo',
   name: 'Consultor Alpha',
   role: 'Consultor de negócios e proteção',
-  tagline: 'Conectando você às melhores soluções para proteger o que importa.',
+  tagline: 'Soluções completas para proteger o que importa.',
   phone: '+55 (62) 00000-0000',
   whatsappNumber: '5562000000000',
   email: 'contato@alphaprotecoes.com.br',
   location: 'Goiânia - GO',
-  address: 'Atendimento online e presencial',
+  address: 'Rua 82, 633 - Setor Sul, Goiânia - GO, 74083-010, Brasil',
   description:
     'Meu papel é entender o seu momento e apresentar caminhos seguros, claros e personalizados. Conte comigo para encontrar a solução mais adequada para você, sua família ou seu negócio.',
   instagramHandle: '@alpha.protecoes',
   instagramUrl: 'https://instagram.com/alpha.protecoes',
   websiteUrl: 'https://alphaprotecoes.com.br',
-  hours: 'Segunda a sexta, das 8h às 18h',
+  hours: '08:00 - 18:00',
+  businessHoursList: demoBusinessHours,
   avatarUrl: '/logos/logo-alpha.png',
   isVerified: true,
   catalog: demoCatalog
@@ -144,6 +155,24 @@ function mapCatalog(value: unknown): CatalogItem[] {
     .filter((item): item is CatalogItem => item !== null)
 
   return mapped.length > 0 ? mapped : demoCatalog
+}
+
+function mapBusinessHours(value: unknown): BusinessHourItem[] {
+  if (!Array.isArray(value)) return demoBusinessHours
+
+  const mapped = value
+    .map((item): BusinessHourItem | null => {
+      if (!item || typeof item !== 'object') return null
+      const source = item as UnknownRecord
+      const day = asString(source.day ?? source.dia)
+      const hours = asString(source.hours ?? source.horario)
+      if (!day || !hours) return null
+
+      return { day, hours }
+    })
+    .filter((item): item is BusinessHourItem => item !== null)
+
+  return mapped.length > 0 ? mapped : demoBusinessHours
 }
 
 export function normalizeConsultant(payload: unknown, id: string): Consultant {
@@ -207,6 +236,9 @@ export function normalizeConsultant(payload: unknown, id: string): Consultant {
     hours: asString(
       nested.hours ?? nested.businessHours ?? nested.horario,
       demoConsultant.hours
+    ),
+    businessHoursList: mapBusinessHours(
+      nested.businessHoursList ?? nested.schedule ?? nested.horarios
     ),
     avatarUrl: asString(
       nested.avatarUrl ?? nested.avatar ?? nested.photo ?? nested.foto,
