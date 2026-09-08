@@ -5,6 +5,7 @@ import Footer from '@/app/components/Footer'
 
 import { getQueryId } from './lib/query'
 import { getConsultant, getWhatsAppUrl } from './lib/consultant'
+import VantagensMarquee from './components/VantagensMarquee'
 
 export default async function Home({
   searchParams
@@ -35,6 +36,8 @@ export default async function Home({
         consultantId={consultant.id}
         consultantName={consultant.name}
       />
+      {/* Vantagens Marquee */}
+      <VantagensMarquee />
 
       {/* Footer */}
       <Footer />

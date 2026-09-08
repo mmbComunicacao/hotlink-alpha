@@ -6,13 +6,20 @@ import { getWhatsAppUrl } from '@/app/lib/consultant'
 import ProfileAvatar from './ProfileAvatar'
 import CatalogCard from './CatalogCard'
 import Icon from './Icon'
+import BusinessHours from './BusinessHours'
 
 interface HeroSectionProps {
   consultant: Consultant
+  whatsappUrl?: string
 }
 
-export default function HeroSection({ consultant }: HeroSectionProps) {
-  const whatsappUrl = getWhatsAppUrl(consultant.whatsappNumber, consultant.name)
+export default function HeroSection({
+  consultant,
+  whatsappUrl: customWhatsappUrl
+}: HeroSectionProps) {
+  const whatsappUrl =
+    customWhatsappUrl ||
+    getWhatsAppUrl(consultant.whatsappNumber, consultant.name)
 
   return (
     <section className="mx-auto w-full max-w-6xl space-y-6 overflow-hidden px-3 py-4 sm:px-6 lg:px-8">
@@ -68,110 +75,57 @@ export default function HeroSection({ consultant }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* COLUNA DIREITA - HEADLINE E VANTAGENS */}
-        <div className="w-full min-w-0 space-y-6 md:col-span-8">
-          <div className="w-full min-w-0 rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-8">
-            <span className="text-xs font-semibold text-slate-400">Olá!</span>
-            <h1 className="mt-2 text-xl font-bold tracking-tight text-slate-900 break-words sm:text-2xl md:text-3xl">
-              Sou <span className="text-[#008CEE]">{consultant.name}</span>,{' '}
-              {consultant.tagline}
-            </h1>
-          </div>
+        {/* COLUNA DIREITA - HEADLINE, SOBRE E HORÁRIO */}
+        <div className="w-full min-w-0 md:col-span-8">
+          <div className="flex h-full flex-col justify-between rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-8">
+            <div>
+              <span className="text-xs font-semibold text-slate-400 sm:text-sm">
+                Olá!
+              </span>
 
-          {/* FAIXA DE VANTAGENS */}
-          <div className="relative w-full min-w-0 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              Vantagens Alpha Proteções
-            </span>
+              {/* Título com fonte menor (text-base até text-xl) */}
+              <h1 className="mt-1 text-base font-bold tracking-tight text-slate-900 wrap-break-words sm:text-lg">
+                Sou <span className="text-[#008CEE]">{consultant.name}</span>,{' '}
+                {consultant.tagline}
+              </h1>
 
-            <div className="pointer-events-none absolute bottom-0 left-0 top-10 z-10 w-8 bg-linear-to-r from-white to-transparent sm:w-12" />
-            <div className="pointer-events-none absolute bottom-0 right-0 top-10 z-10 w-8 bg-linear-to-l from-white to-transparent sm:w-12" />
+              {/* Descrição que preenche o espaço em branco */}
+              <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                {consultant.description ||
+                  'Conectamos corretores e consultores a um portfólio completo de seguros e proteção veicular. Conheça nossa parceria.'}
+              </p>
+            </div>
 
-            <div className="mt-4 flex w-full overflow-hidden">
-              <div className="flex animate-marquee space-x-3 whitespace-nowrap sm:space-x-4">
-                <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 px-3.5 py-2 text-[11px] font-bold text-slate-800 sm:px-4 sm:py-2.5 sm:text-xs">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#008CEE]/10 text-[#008CEE] sm:h-6 sm:w-6">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                    >
-                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                    </svg>
-                  </span>
-                  AÇÃO IMEDIATA
-                </div>
-
-                <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 px-3.5 py-2 text-[11px] font-bold text-slate-800 sm:px-4 sm:py-2.5 sm:text-xs">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#008CEE]/10 text-[#008CEE] sm:h-6 sm:w-6">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-                    </svg>
-                  </span>
-                  GUINCHO E CHAVEIRO
-                </div>
-
-                <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 px-3.5 py-2 text-[11px] font-bold text-slate-800 sm:px-4 sm:py-2.5 sm:text-xs">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#008CEE]/10 text-[#008CEE] sm:h-6 sm:w-6">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                  </span>
-                  PROTEÇÃO VEICULAR 24H
-                </div>
-
-                <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 px-3.5 py-2 text-[11px] font-bold text-slate-800 sm:px-4 sm:py-2.5 sm:text-xs">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#008CEE]/10 text-[#008CEE] sm:h-6 sm:w-6">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-                    </svg>
-                  </span>
-                  PROTEÇÃO PARA TERCEIROS
-                </div>
-
-                <div className="flex shrink-0 items-center gap-2 rounded-2xl border border-slate-100 bg-slate-50 px-3.5 py-2 text-[11px] font-bold text-slate-800 sm:px-4 sm:py-2.5 sm:text-xs">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#008CEE]/10 text-[#008CEE] sm:h-6 sm:w-6">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20M2 12h20" />
-                    </svg>
-                  </span>
-                  COBERTURA NACIONAL
-                </div>
+            {/* Bloco de Informações de Local e Horário */}
+            <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
+              {/* Endereço */}
+              <div className="flex items-start gap-2 text-xs text-slate-600 sm:text-sm">
+                <svg
+                  className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span>{consultant.address}</span>
               </div>
+
+              {/* Componente Dropdown de Horário */}
+              <BusinessHours
+                hoursList={consultant.businessHoursList}
+                currentHours={consultant.hours}
+              />
             </div>
           </div>
         </div>
@@ -275,16 +229,7 @@ export default function HeroSection({ consultant }: HeroSectionProps) {
           >
             Soluções Alpha Proteções
           </h2>
-          <a
-            href={consultant.websiteUrl ?? 'https://alphaprotecoes.com.br'}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs font-semibold text-[#008CEE] hover:underline"
-          >
-            Ver todas →
-          </a>
         </div>
-
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {consultant.catalog.map(item => (
             <CatalogCard key={`${consultant.id}-${item.title}`} item={item} />
