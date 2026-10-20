@@ -2,24 +2,25 @@
 
 import React from 'react'
 import type { Consultant } from '@/app/lib/consultant'
-import { getWhatsAppUrl } from '@/app/lib/consultant'
 import ProfileAvatar from './ProfileAvatar'
 import CatalogCard from './CatalogCard'
-import Icon from './Icon'
 import BusinessHours from './BusinessHours'
 
 interface HeroSectionProps {
   consultant: Consultant
-  whatsappUrl?: string
 }
 
-export default function HeroSection({
-  consultant,
-  whatsappUrl: customWhatsappUrl
-}: HeroSectionProps) {
-  const whatsappUrl =
-    customWhatsappUrl ||
-    getWhatsAppUrl(consultant.whatsappNumber, consultant.name)
+export default function HeroSection({ consultant }: HeroSectionProps) {
+  function handleRequestContact() {
+    // Dispara evento global para expandir o LeadBanner
+    window.dispatchEvent(new Event('open-lead-banner'))
+
+    // Rola suavemente até o LeadBanner
+    const leadBanner = document.getElementById('lead-banner')
+    if (leadBanner) {
+      leadBanner.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <section className="mx-auto w-full max-w-6xl space-y-6 overflow-hidden px-3 py-4 sm:px-6 lg:px-8">
@@ -42,36 +43,36 @@ export default function HeroSection({
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#008CEE] opacity-75" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#008CEE]" />
               </span>
-              Disponível para atendimento online
+              Disponível para atendimento
             </div>
           </div>
 
-          {/* BOTÕES DE CONTATO (WHATSAPP + TELEGRAM) */}
-          <div className="mt-6 flex w-full items-center justify-center gap-2">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="group relative flex min-w-0 flex-1 items-center justify-center gap-2 overflow-hidden rounded-xl bg-linear-to-b from-[#00A3FF] via-[#008CEE] to-[#0070C8] px-3 py-3 text-xs font-bold text-white shadow-lg shadow-[#008CEE]/30 transition-all duration-300 hover:scale-[1.02] active:scale-95 sm:px-4 sm:py-3.5 sm:text-sm"
+          {/* BOTÃO DE AÇÃO PRINCIPAL */}
+          <div className="mt-6 flex w-full items-center justify-center">
+            <button
+              onClick={handleRequestContact}
+              className="group relative flex w-full min-w-0 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-b from-[#00A3FF] via-[#008CEE] to-[#0070C8] px-4 py-3.5 text-xs font-bold text-white shadow-lg shadow-[#008CEE]/30 transition-all duration-300 hover:scale-[1.02] active:scale-95 sm:text-sm"
             >
-              <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-xl bg-linear-to-b from-white/35 to-transparent" />
-              <span className="pointer-events-none absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-linear-to-r from-transparent via-white/40 to-transparent transition-all duration-1000 ease-out group-hover:left-full" />
+              <span className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-xl bg-gradient-to-b from-white/35 to-transparent" />
+              <span className="pointer-events-none absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent transition-all duration-1000 ease-out group-hover:left-full" />
 
-              <span className="relative z-10 flex items-center gap-1.5 truncate drop-shadow-sm sm:gap-2">
-                Falar no WhatsApp <Icon name="whatsapp" size={16} />
+              <span className="relative z-10 flex items-center gap-2 truncate drop-shadow-sm">
+                Solicitar Contato
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
               </span>
-            </a>
-
-            <a
-              href="https://t.me/AlphaProtecoesBot"
-              target="_blank"
-              rel="noreferrer"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white text-[#24A1DE] shadow-sm transition-all duration-200 hover:border-[#24A1DE] hover:bg-[#24A1DE] hover:text-white active:scale-95 sm:h-12 sm:w-12"
-              title="Atendimento via Telegram"
-              aria-label="Telegram"
-            >
-              <Icon name="telegram" size={18} />
-            </a>
+            </button>
           </div>
         </div>
 
@@ -83,13 +84,11 @@ export default function HeroSection({
                 Olá!
               </span>
 
-              {/* Título com fonte menor (text-base até text-xl) */}
               <h1 className="mt-1 text-base font-bold tracking-tight text-slate-900 wrap-break-words sm:text-lg">
                 Sou <span className="text-[#008CEE]">{consultant.name}</span>,{' '}
                 {consultant.tagline}
               </h1>
 
-              {/* Descrição que preenche o espaço em branco */}
               <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
                 {consultant.description ||
                   'Conectamos corretores e consultores a um portfólio completo de seguros e proteção veicular. Conheça nossa parceria.'}
@@ -98,7 +97,6 @@ export default function HeroSection({
 
             {/* Bloco de Informações de Local e Horário */}
             <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
-              {/* Endereço */}
               <div className="flex items-start gap-2 text-xs text-slate-600 sm:text-sm">
                 <svg
                   className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
@@ -121,7 +119,6 @@ export default function HeroSection({
                 <span>{consultant.address}</span>
               </div>
 
-              {/* Componente Dropdown de Horário */}
               <BusinessHours
                 hoursList={consultant.businessHoursList}
                 currentHours={consultant.hours}
@@ -131,7 +128,7 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* SEÇÃO NOSSAS MARCAS E PARCEIROS */}
+      {/* SEÇÃO MARCAS E PARCEIROS */}
       <div className="w-full min-w-0 rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-8">
         <div className="max-w-2xl">
           <h3 className="text-base font-bold text-slate-900 sm:text-lg">
@@ -145,72 +142,69 @@ export default function HeroSection({
 
         <div className="my-5 border-t border-slate-100" />
 
-        {/* CARROSSEL CONTINUO COM LOGOS EM TAMANHO PROPORCIONAL E TEMPO SUAVE */}
         <div className="relative w-full overflow-hidden py-1">
           <div className="flex w-full overflow-hidden">
             <div className="flex animate-marquee items-center space-x-12 whitespace-nowrap [animation-duration:35s] sm:space-x-16">
-              {/* PRIMEIRO BLOCO DE LOGOS */}
               <img
                 src="/logos/alpha.png"
                 alt="Alpha Proteções"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/auto-mensal.png"
                 alt="Auto Mensal"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/movimento-mais-seguro.png"
                 alt="Movimento Mais Seguro"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/potere-consorcio.png"
                 alt="Potere Consórcio"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/solucoes-corretora.png"
                 alt="Soluções Corretora"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/movimento-mais-brasil.png"
                 alt="Movimento Mais Brasil"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
 
-              {/* DUPLICAÇÃO PARA EFEITO LOOPING PERFEITO */}
               <img
                 src="/logos/alpha.png"
                 alt="Alpha Proteções"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/auto-mensal.png"
                 alt="Auto Mensal"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/movimento-mais-seguro.png"
                 alt="Movimento Mais Seguro"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/potere-consorcio.png"
                 alt="Potere Consórcio"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/solucoes-corretora.png"
                 alt="Soluções Corretora"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
               <img
                 src="/logos/movimento-mais-brasil.png"
                 alt="Movimento Mais Brasil"
-                className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105 sm:h-10"
+                className="h-8 w-auto object-contain sm:h-10"
               />
             </div>
           </div>

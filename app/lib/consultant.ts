@@ -32,6 +32,34 @@ export type Consultant = {
   catalog: CatalogItem[]
 }
 
+export type RegionalKey = 'goiania' | 'cuiaba' | 'joao_pessoa' | 'arapiraca'
+
+export interface RegionalInfo {
+  location: string
+  address: string
+}
+
+export const REGIONAIS: Record<string, RegionalInfo> = {
+  goiania: {
+    location: 'Goiânia - GO',
+    address: 'Rua 82, 633 - Setor Sul, Goiânia - GO, 74083-010, Brasil'
+  },
+  cuiaba: {
+    location: 'Cuiabá - MT',
+    address: 'Av. Carmindo de Campos - Dom Aquino, Cuiabá - MT, 78015-021'
+  },
+  joao_pessoa: {
+    location: 'João Pessoa - PB',
+    address:
+      'Av. Pres. Epitácio Pessoa, 4940 - Cabo Branco, João Pessoa - PB, 58039-000'
+  },
+  arapiraca: {
+    location: 'Arapiraca - AL',
+    address:
+      'R. José Emídio de Lima, 150 A - Jardim Esperança, Arapiraca - AL, 57307-350'
+  }
+}
+
 type UnknownRecord = Record<string, unknown>
 
 const demoBusinessHours: BusinessHourItem[] = [
@@ -101,10 +129,10 @@ const demoConsultant: Consultant = {
   role: 'Consultor de negócios e proteção',
   tagline: 'Soluções completas para proteger o que importa.',
   phone: '+55 (62) 00000-0000',
-  whatsappNumber: '5562000000000',
+  whatsappNumber: '558006048006',
   email: 'contato@alphaprotecoes.com.br',
-  location: 'Goiânia - GO',
-  address: 'Rua 82, 633 - Setor Sul, Goiânia - GO, 74083-010, Brasil',
+  location: REGIONAIS.goiania.location,
+  address: REGIONAIS.goiania.address,
   description:
     'Meu papel é entender o seu momento e apresentar caminhos seguros, claros e personalizados. Conte comigo para encontrar a solução mais adequada para você, sua família ou seu negócio.',
   instagramHandle: '@alpha.protecoes',
@@ -186,6 +214,23 @@ export function normalizeConsultant(payload: unknown, id: string): Consultant {
         ? source.data
         : source
   ) as UnknownRecord
+
+  const regionalKey = asString(
+    nested.regional ?? nested.unidade ?? nested.filial
+  ).toLowerCase()
+
+  const regionalInfo = REGIONAIS[regionalKey]
+
+  const location = asString(
+    nested.location ?? nested.city ?? nested.cidade,
+    regionalInfo?.location ?? demoConsultant.location
+  )
+
+  const address = asString(
+    nested.address ?? nested.endereco,
+    regionalInfo?.address ?? demoConsultant.address
+  )
+
   const phone = asString(
     nested.phone ?? nested.telephone ?? nested.mobile,
     demoConsultant.phone
@@ -209,14 +254,8 @@ export function normalizeConsultant(payload: unknown, id: string): Consultant {
     phone,
     whatsappNumber,
     email: asString(nested.email, demoConsultant.email),
-    location: asString(
-      nested.location ?? nested.city ?? nested.cidade,
-      demoConsultant.location
-    ),
-    address: asString(
-      nested.address ?? nested.endereco,
-      demoConsultant.address
-    ),
+    location,
+    address,
     description: asString(
       nested.description ?? nested.bio ?? nested.sobre,
       demoConsultant.description
@@ -242,7 +281,7 @@ export function normalizeConsultant(payload: unknown, id: string): Consultant {
     ),
     avatarUrl: asString(
       nested.avatarUrl ?? nested.avatar ?? nested.photo ?? nested.foto,
-      '/logo-alpha.png'
+      '/logos/logo-alpha.png'
     ),
     isVerified: asBoolean(
       nested.isVerified ?? nested.verified,
@@ -262,7 +301,7 @@ export async function getConsultant(id: string) {
   const normalizedId = id.trim()
   const apiUrl = process.env.CONSULTANT_API_URL?.trim()
 
-  if (!apiUrl || !normalizedId) {
+  if (!apiUrl || !normalizedId || normalizedId === 'demo') {
     return {
       consultant: getDemoConsultant(normalizedId || 'demo'),
       source: 'demo' as const
