@@ -23,6 +23,17 @@ export default function LeadBanner({
     return () => clearTimeout(timer)
   }, [])
 
+  // Ouvinte para abrir/expandir o banner ao clicar em "Solicitar Contato" no HeroSection
+  useEffect(() => {
+    function handleOpen() {
+      setIsVisible(true)
+      setIsExpanded(true)
+    }
+
+    window.addEventListener('open-lead-banner', handleOpen)
+    return () => window.removeEventListener('open-lead-banner', handleOpen)
+  }, [])
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!formData.name || !formData.phone) return
@@ -30,21 +41,17 @@ export default function LeadBanner({
     setStatus('submitting')
 
     try {
-      // 1. Faz a requisição (retorna um objeto Response)
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, consultantId, consultantName })
       })
 
-      // 2. Checa se a requisição falhou no servidor (Status 4xx ou 5xx)
       if (!response.ok) throw new Error('Não foi possível registrar o lead')
 
-      // 3. Extrai o corpo da resposta em JSON
       const data: { ok: boolean; mode: string; quotationCode: string } =
         await response.json()
 
-      // 4. Pega o quotationCode dos DADOS extraídos
       const { quotationCode } = data
 
       setStatus('success')
@@ -53,7 +60,6 @@ export default function LeadBanner({
         setIsVisible(false)
       }, 3000)
 
-      // 5. Envia a próxima requisição com o quotationCode correto
       const responseActivity = await fetch('/api/activity', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,9 +77,14 @@ export default function LeadBanner({
   if (!isVisible) return null
 
   return (
-    <div className="fixed bottom-6 left-1/2 z-50 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2 px-4 sm:bottom-8 sm:left-auto sm:right-8 sm:translate-x-0 sm:px-0">
+    <div
+      id="lead-banner"
+      className="fixed bottom-6 left-1/2 z-50 w-[calc(100%-2.5rem)] max-w-md -translate-x-1/2 px-4 sm:bottom-8 sm:left-auto sm:right-8 sm:translate-x-0 sm:px-0"
+    >
       <div
-        className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(0,140,238,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isExpanded ? 'max-h-100 opacity-100' : 'max-h-16 opacity-100'}`}
+        className={`overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_50px_rgba(0,140,238,0.15)] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+          isExpanded ? 'max-h-100 opacity-100' : 'max-h-16 opacity-100'
+        }`}
       >
         {!isExpanded ? (
           <button

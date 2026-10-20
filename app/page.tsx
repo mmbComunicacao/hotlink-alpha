@@ -4,7 +4,7 @@ import LeadBanner from '@/app/components/LeadBanner'
 import Footer from '@/app/components/Footer'
 
 import { getQueryId } from './lib/query'
-import { getConsultant, getWhatsAppUrl } from './lib/consultant'
+import { getConsultant } from './lib/consultant'
 import VantagensMarquee from './components/VantagensMarquee'
 
 export default async function Home({
@@ -14,7 +14,6 @@ export default async function Home({
 }) {
   const queryId = getQueryId(await searchParams)
   const { consultant, source } = await getConsultant(queryId)
-  const whatsappUrl = getWhatsAppUrl(consultant.whatsappNumber, consultant.name)
   const profileUrl = `/?id=${encodeURIComponent(consultant.id)}`
 
   return (
@@ -36,6 +35,7 @@ export default async function Home({
         consultantId={consultant.id}
         consultantName={consultant.name}
       />
+
       {/* Vantagens Marquee */}
       <VantagensMarquee />
 
